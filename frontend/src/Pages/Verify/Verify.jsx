@@ -3,7 +3,7 @@ import './Verify.css'
 import {useNavigate, useSearchParams} from 'react-router-dom'
 import { StoreContext } from '../../Context/StoreContext';
 import axios from 'axios';
-import { toast } from 'react-toastify';
+import { toast } from 'react-toastify'
 
 const Verify = () => {
 
@@ -16,7 +16,7 @@ const Verify = () => {
     const verifyPayment = async () => {
         const response = await axios.post(url+"/api/order/verify",{success,orderId});
         if (response.data.success){
-            toast.success("🎉 Order placed successfully!");
+            toast.success("🎉 Order placed successfully!")
             navigate("/myorders");
         }
         else{
@@ -27,7 +27,6 @@ const Verify = () => {
     useEffect(()=>{
         verifyPayment();
     },[])
-    
 
   return (
     <div className='verify'>
