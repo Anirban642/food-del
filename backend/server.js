@@ -1,38 +1,44 @@
-import express from "express"
-import cors from "cors"
-import { connectDB } from "./Config/db.js"
-import foodRouter from "./Routes/foodRoute.js"
-import userRouter from "./Routes/userRoute.js"
-import 'dotenv/config'
-import cartRouter from "./Routes/cartRoute.js"
-import orderRouter from "./Routes/orderRoute.js"
+import express from "express";
+import cors from "cors";
+import path from "path";
+import { fileURLToPath } from "url";
+import { connectDB } from "./Config/db.js";
+import foodRouter from "./Routes/foodRoute.js";
+import userRouter from "./Routes/userRoute.js";
+import cartRouter from "./Routes/cartRoute.js";
+import orderRouter from "./Routes/orderRoute.js";
+import 'dotenv/config';
 
+// App config
+const app = express();
+const port = process.env.PORT || 4000;
 
-// app config
-const app = express()
-const port = process.env.PORT || 4000
+// Resolve __dirname in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-// middleware
-app.use(express.json())
-app.use(cors())
+// Middleware
+app.use(express.json());
+app.use(cors());
 
-// db connection
+// DB connection
 connectDB();
 
-// api endpoints
-app.use("/api/food",foodRouter)
-app.use("/images",express.static('uploads'))
-app.use("/api/user",userRouter)
-app.use("/api/cart",cartRouter)
-app.use("/api/order",orderRouter)
+// Serve uploads folder as /images
+app.use("/images", express.static(path.join(__dirname, "uploads")));
 
+// API endpoints
+app.use("/api/food", foodRouter);
+app.use("/api/user", userRouter);
+app.use("/api/cart", cartRouter);
+app.use("/api/order", orderRouter);
 
-app.get("/",(req,res)=>{
-    res.send("API Working")
-})
+// Root endpoint
+app.get("/", (req, res) => {
+    res.send("API Working");
+});
 
-app.listen(port,()=>{
-    console.log(`Server Started on http://localhost:${port}`)
-})
-
-
+// Start server
+app.listen(port, () => {
+    console.log(`Server started on http://localhost:${port}`);
+});
