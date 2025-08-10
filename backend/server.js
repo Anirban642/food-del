@@ -27,9 +27,18 @@ app.use(cors({
 // db connection
 connectDB();
 
+// Static files middleware with proper headers (BEFORE API routes)
+app.use("/images", express.static('Uploads', {
+  setHeaders: (res, path) => {
+    res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET');
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  }
+}))
+
 // api endpoints
 app.use("/api/food",foodRouter)
-app.use("/images",express.static('uploads'))
 app.use("/api/user",userRouter)
 app.use("/api/cart",cartRouter)
 app.use("/api/order",orderRouter)
