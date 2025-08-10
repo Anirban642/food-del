@@ -5,9 +5,10 @@ import {toast} from 'react-toastify'
 import axios from "axios"
 import { assets } from '../../assets/assets'
 
-const Orders = ({url}) => {
+const Orders = () => {
 
   const [orders, setOrders] = useState([]);
+  const url = "https://food-del-backend-ja22.onrender.com";
 
   const fetchAllOrders = async () => {
     const response = await axios.get(url+"/api/order/list");
