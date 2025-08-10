@@ -2,11 +2,10 @@ import React, { useState,useEffect } from 'react'
 import './List.css'
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import url from'../../assets/assets
 
-const List = ({url}) => {
+const List = () => {
 
-  // const url = "https://food-del-backend-ja22.onrender.com";
+  const url = "https://food-del-backend-ja22.onrender.com";
   const [list,setList] = useState([]);
 
   const fetchList =  async () => {
