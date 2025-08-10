@@ -25,7 +25,8 @@ app.use(cors());
 connectDB();
 
 // Serve uploads folder as /images
-app.use("/images", express.static(path.join(__dirname, "uploads")));
+app.use("/images", express.static(path.join(__dirname, "../uploads")));
+
 
 // API endpoints
 app.use("/api/food", foodRouter);
